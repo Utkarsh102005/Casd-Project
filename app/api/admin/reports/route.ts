@@ -1,10 +1,19 @@
 import { NextResponse } from "next/server"
-import clientPromise from "@/lib/mongodb"
+import { isMongoAvailable, default as getMongoClient } from "@/lib/mongodb"
 
 export async function GET() {
   try {
+    // Check if MongoDB is available
+    if (!isMongoAvailable()) {
+      return NextResponse.json({
+        success: false,
+        message: "MongoDB is not configured. Please set up a valid MONGODB_URI environment variable.",
+        reports: [],
+      })
+    }
+
     // Connect to MongoDB
-    const client = await clientPromise
+    const client = await getMongoClient()
     const db = client.db()
 
     // Get all scam reports, sorted by most recent first
@@ -24,7 +33,8 @@ export async function GET() {
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch reports",
+        message: "Failed to fetch reports: " + (error instanceof Error ? error.message : "Unknown error"),
+        reports: [],
       },
       { status: 500 },
     )

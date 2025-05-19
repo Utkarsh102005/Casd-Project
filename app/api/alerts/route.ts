@@ -1,10 +1,18 @@
 import { NextResponse } from "next/server"
-import clientPromise from "@/lib/mongodb"
+import { isMongoAvailable, default as getMongoClient } from "@/lib/mongodb"
 
 export async function GET() {
   try {
+    // Check if MongoDB is available
+    if (!isMongoAvailable()) {
+      // Return sample data if MongoDB is not configured
+      return NextResponse.json({
+        alerts: getSampleAlerts(),
+      })
+    }
+
     // Connect to MongoDB
-    const client = await clientPromise
+    const client = await getMongoClient()
     const db = client.db()
 
     // Get the most recent scam reports that have been reviewed

@@ -5,12 +5,13 @@ import { useToast } from "@/components/ui/use-toast"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AlertTriangle, FileText, Clock, User, MapPin } from "lucide-react"
+import { AlertTriangle, FileText, Clock, User, MapPin, Database } from "lucide-react"
 
 export default function DashboardPage() {
   const { toast } = useToast()
   const [reports, setReports] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
     async function fetchReports() {
@@ -21,9 +22,16 @@ export default function DashboardPage() {
         }
 
         const data = await response.json()
-        setReports(data.reports || [])
+
+        if (!data.success) {
+          setError(data.message || "Failed to fetch reports")
+          setReports([])
+        } else {
+          setReports(data.reports || [])
+        }
       } catch (error) {
         console.error("Error fetching reports:", error)
+        setError(error instanceof Error ? error.message : "Failed to load reports")
         toast({
           title: "Error",
           description: "Failed to load reports. Please try again later.",
@@ -74,6 +82,17 @@ export default function DashboardPage() {
             <div className="grid gap-4">
               {loading ? (
                 <p>Loading reports...</p>
+              ) : error ? (
+                <Card>
+                  <CardContent className="flex flex-col items-center justify-center py-8">
+                    <Database className="h-12 w-12 text-gray-400 mb-4" />
+                    <h3 className="text-lg font-medium">Database Error</h3>
+                    <p className="text-gray-500 text-center mt-2">{error}</p>
+                    <p className="text-gray-500 text-center mt-2">
+                      Please check your MongoDB connection string in the environment variables.
+                    </p>
+                  </CardContent>
+                </Card>
               ) : reports.length === 0 ? (
                 <Card>
                   <CardContent className="flex flex-col items-center justify-center py-8">
@@ -144,26 +163,34 @@ export default function DashboardPage() {
                 <CardDescription>Overview of scam reports and trends</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  <div className="bg-muted rounded-lg p-4 text-center">
-                    <div className="text-2xl font-bold">{reports.length}</div>
-                    <div className="text-sm text-muted-foreground">Total Reports</div>
+                {error ? (
+                  <div className="flex flex-col items-center justify-center py-8">
+                    <Database className="h-12 w-12 text-gray-400 mb-4" />
+                    <h3 className="text-lg font-medium">Database Error</h3>
+                    <p className="text-gray-500 text-center mt-2">{error}</p>
                   </div>
-                  <div className="bg-muted rounded-lg p-4 text-center">
-                    <div className="text-2xl font-bold">{reports.filter((r) => r.status === "pending").length}</div>
-                    <div className="text-sm text-muted-foreground">Pending</div>
-                  </div>
-                  <div className="bg-muted rounded-lg p-4 text-center">
-                    <div className="text-2xl font-bold">
-                      {reports.filter((r) => r.status === "reviewed" || r.status === "actioned").length}
+                ) : (
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="bg-muted rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold">{reports.length}</div>
+                      <div className="text-sm text-muted-foreground">Total Reports</div>
                     </div>
-                    <div className="text-sm text-muted-foreground">Reviewed</div>
+                    <div className="bg-muted rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold">{reports.filter((r) => r.status === "pending").length}</div>
+                      <div className="text-sm text-muted-foreground">Pending</div>
+                    </div>
+                    <div className="bg-muted rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold">
+                        {reports.filter((r) => r.status === "reviewed" || r.status === "actioned").length}
+                      </div>
+                      <div className="text-sm text-muted-foreground">Reviewed</div>
+                    </div>
+                    <div className="bg-muted rounded-lg p-4 text-center">
+                      <div className="text-2xl font-bold">{reports.filter((r) => r.hasAttachment).length}</div>
+                      <div className="text-sm text-muted-foreground">With Evidence</div>
+                    </div>
                   </div>
-                  <div className="bg-muted rounded-lg p-4 text-center">
-                    <div className="text-2xl font-bold">{reports.filter((r) => r.hasAttachment).length}</div>
-                    <div className="text-sm text-muted-foreground">With Evidence</div>
-                  </div>
-                </div>
+                )}
               </CardContent>
             </Card>
           </TabsContent>
