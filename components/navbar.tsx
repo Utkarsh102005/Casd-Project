@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ModeToggle } from "@/components/mode-toggle"
 import { Shield, Menu, Bell, AlertTriangle, FileSearch, BookOpen, User } from "lucide-react"
+import { Text } from "@/components/ui/text"
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -55,7 +56,9 @@ export default function Navbar() {
         <div className="mr-4 flex">
           <Link href="/" className="flex items-center space-x-2">
             <Shield className="h-6 w-6 text-blue-600" />
-            <span className="font-bold text-xl hidden md:inline-block">CyberSuraksha</span>
+            <Text as="span" className="font-bold text-xl hidden md:inline-block">
+              CyberSuraksha
+            </Text>
           </Link>
         </div>
         <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
@@ -64,11 +67,11 @@ export default function Navbar() {
               key={route.path}
               href={route.path}
               className={`flex items-center text-sm font-medium transition-colors hover:text-primary ${
-                isActive(route.path) ? "text-foreground" : "text-muted-foreground"
+                isActive(route.path) ? "text-custom" : "text-custom opacity-70"
               }`}
             >
               {route.icon}
-              {route.name}
+              <Text>{route.name}</Text>
             </Link>
           ))}
         </div>
@@ -78,11 +81,13 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-2">
               <Link href="/auth/login">
                 <Button variant="outline" size="sm">
-                  Sign In
+                  <Text>Sign In</Text>
                 </Button>
               </Link>
               <Link href="/auth/signup">
-                <Button size="sm">Sign Up</Button>
+                <Button size="sm">
+                  <Text className="text-white">Sign Up</Text>
+                </Button>
               </Link>
             </div>
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -96,7 +101,9 @@ export default function Navbar() {
                 <div className="px-7">
                   <Link href="/" className="flex items-center space-x-2" onClick={() => setIsOpen(false)}>
                     <Shield className="h-6 w-6 text-blue-600" />
-                    <span className="font-bold text-xl">CyberSuraksha</span>
+                    <Text as="span" className="font-bold text-xl">
+                      CyberSuraksha
+                    </Text>
                   </Link>
                 </div>
                 <nav className="flex flex-col gap-4 mt-8 px-7">
@@ -105,26 +112,28 @@ export default function Navbar() {
                       key={route.path}
                       href={route.path}
                       className={`flex items-center text-sm font-medium transition-colors hover:text-primary ${
-                        isActive(route.path) ? "text-foreground" : "text-muted-foreground"
+                        isActive(route.path) ? "text-custom" : "text-custom opacity-70"
                       }`}
                       onClick={() => setIsOpen(false)}
                     >
                       {route.icon}
-                      {route.name}
+                      <Text>{route.name}</Text>
                     </Link>
                   ))}
                   <Separator className="my-4" />
                   <Link
                     href="/auth/login"
-                    className="flex items-center text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                    className="flex items-center text-sm font-medium transition-colors hover:text-primary text-custom opacity-70"
                     onClick={() => setIsOpen(false)}
                   >
                     <User className="h-4 w-4 mr-2" />
-                    Sign In
+                    <Text>Sign In</Text>
                   </Link>
                   <div className="mt-4">
                     <Link href="/auth/signup" onClick={() => setIsOpen(false)}>
-                      <Button className="w-full">Sign Up</Button>
+                      <Button className="w-full">
+                        <Text className="text-white">Sign Up</Text>
+                      </Button>
                     </Link>
                   </div>
                 </nav>

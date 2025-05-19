@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Shield } from "lucide-react"
+import { Text } from "@/components/ui/text"
 
 export default function Footer() {
   return (
@@ -9,74 +10,82 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
               <Shield className="h-6 w-6 text-blue-600" />
-              <span className="font-bold text-xl">CyberSuraksha</span>
+              <Text as="span" className="font-bold text-xl">
+                CyberSuraksha
+              </Text>
             </Link>
-            <p className="text-sm text-muted-foreground">
+            <Text as="p" className="text-sm opacity-70">
               Protecting citizens in the digital world through education, awareness, and community-driven threat
               intelligence.
-            </p>
+            </Text>
           </div>
           <div className="space-y-4">
-            <h3 className="text-sm font-medium">Services</h3>
+            <Text as="h3" className="text-sm font-medium">
+              Services
+            </Text>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/report" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Report Scams
+                <Link href="/report" className="text-custom opacity-70 hover:opacity-100 transition-opacity">
+                  <Text>Report Scams</Text>
                 </Link>
               </li>
               <li>
-                <Link href="/alerts" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Scam Alerts
+                <Link href="/alerts" className="text-custom opacity-70 hover:opacity-100 transition-opacity">
+                  <Text>Scam Alerts</Text>
                 </Link>
               </li>
               <li>
-                <Link href="/scanner" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Threat Scanner
+                <Link href="/scanner" className="text-custom opacity-70 hover:opacity-100 transition-opacity">
+                  <Text>Threat Scanner</Text>
                 </Link>
               </li>
               <li>
-                <Link href="/cyber-tips" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Cyber Safety Tips
+                <Link href="/cyber-tips" className="text-custom opacity-70 hover:opacity-100 transition-opacity">
+                  <Text>Cyber Safety Tips</Text>
                 </Link>
               </li>
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-sm font-medium">Company</h3>
+            <Text as="h3" className="text-sm font-medium">
+              Company
+            </Text>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About Us
+                <Link href="/about" className="text-custom opacity-70 hover:opacity-100 transition-opacity">
+                  <Text>About Us</Text>
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Contact
+                <Link href="/contact" className="text-custom opacity-70 hover:opacity-100 transition-opacity">
+                  <Text>Contact</Text>
                 </Link>
               </li>
               <li>
-                <Link href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Privacy Policy
+                <Link href="/privacy" className="text-custom opacity-70 hover:opacity-100 transition-opacity">
+                  <Text>Privacy Policy</Text>
                 </Link>
               </li>
               <li>
-                <Link href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Terms of Service
+                <Link href="/terms" className="text-custom opacity-70 hover:opacity-100 transition-opacity">
+                  <Text>Terms of Service</Text>
                 </Link>
               </li>
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-sm font-medium">Connect</h3>
+            <Text as="h3" className="text-sm font-medium">
+              Connect
+            </Text>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
                   href="https://twitter.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-custom opacity-70 hover:opacity-100 transition-opacity"
                 >
-                  Twitter
+                  <Text>Twitter</Text>
                 </a>
               </li>
               <li>
@@ -84,9 +93,9 @@ export default function Footer() {
                   href="https://facebook.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-custom opacity-70 hover:opacity-100 transition-opacity"
                 >
-                  Facebook
+                  <Text>Facebook</Text>
                 </a>
               </li>
               <li>
@@ -94,9 +103,9 @@ export default function Footer() {
                   href="https://instagram.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-custom opacity-70 hover:opacity-100 transition-opacity"
                 >
-                  Instagram
+                  <Text>Instagram</Text>
                 </a>
               </li>
               <li>
@@ -104,27 +113,27 @@ export default function Footer() {
                   href="https://github.com"
                   target="_blank"
                   rel="noreferrer"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-custom opacity-70 hover:opacity-100 transition-opacity"
                 >
-                  GitHub
+                  <Text>GitHub</Text>
                 </a>
               </li>
             </ul>
           </div>
         </div>
         <div className="mt-8 border-t pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-xs text-muted-foreground">
+          <Text as="p" className="text-xs opacity-70">
             &copy; {new Date().getFullYear()} CyberSuraksha. All rights reserved.
-          </p>
+          </Text>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
-            <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Privacy
+            <Link href="/privacy" className="text-custom opacity-70 hover:opacity-100 transition-opacity text-xs">
+              <Text>Privacy</Text>
             </Link>
-            <Link href="/terms" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Terms
+            <Link href="/terms" className="text-custom opacity-70 hover:opacity-100 transition-opacity text-xs">
+              <Text>Terms</Text>
             </Link>
-            <Link href="/contact" className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              Contact
+            <Link href="/contact" className="text-custom opacity-70 hover:opacity-100 transition-opacity text-xs">
+              <Text>Contact</Text>
             </Link>
           </div>
         </div>
